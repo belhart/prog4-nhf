@@ -1,0 +1,455 @@
+﻿namespace TimetravelBird.Logic
+{
+    using System;
+    using System.Linq;
+    using System.Windows.Input;
+    using TimetravelBird.Model;
+    using TimetravelBird.Renderer;
+    using TimetravelBird.Repo;
+
+    /// <summary>
+    /// Main logic of the game.
+    /// </summary>
+    public class TimeTravelBirdLogic : ITimeTravelBirdLogic
+    {
+        private static Random random = new Random();
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the weather has been spawned.
+        /// </summary>
+        public bool IsThereWeather { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the weather has been spawned.
+        /// </summary>
+        public bool IsThereWind { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the bird has been launched.
+        /// </summary>
+        public bool Launch { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value of the model.
+        /// </summary>
+        public ITimetravelBirdModel model { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the bird is in the sky.
+        /// </summary>
+        public bool inSky { get; set; }
+
+        public event EventHandler<ITimetravelBirdModel> GameEnded;
+
+        public bool EndGameAnimation { get; set; }
+
+        public int WeatherTickCounter { get; set; }
+
+        public int WindTickCounter { get; set; }
+
+        public int TickForTimeTravel { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the bird is approaching to a new level.
+        /// </summary>
+        public bool InTimeTravel { get; set; }
+
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TimeTravelBirdLogic"/> class.
+        /// </summary>
+        /// <param name="model">model parameter.</param>
+        public TimeTravelBirdLogic(ITimetravelBirdModel model)
+        {
+            this.model = model;
+            this.Launch = true;
+            this.inSky = false;
+            this.WeatherTickCounter = 0;
+            this.WindTickCounter = 0;
+            this.IsThereWeather = false;
+            this.IsThereWind = false;
+            this.TickForTimeTravel = 0;
+            this.InTimeTravel = false;
+            this.EndGameAnimation = false;
+        }
+
+        public TimetravelBirdRenderer CreateRenderer()
+        {
+            return new TimetravelBirdRenderer(this.model);
+        }
+
+        public bool GameEnded()
+        {
+            bool ended = false;
+            if (this.model.Bird.DX <= 0 && this.model.Bird.ItemCoordY >= 560)
+            {
+                ended = true;
+            }
+
+            return ended;
+        }
+
+        /// <summary>
+        /// When the game ends it resets the position of the objects.
+        /// </summary>
+        /// <param name="fname">name of the save which needs to be reseted.</param>
+        public void BirdReset()
+        {
+            this.model.Money += Convert.ToInt32((this.model.Bird.RealX / 100) * (1 + (this.model.Bird.MoneyBonusModifier / 100)));
+            this.model.Bird.RealY = 0;
+            this.model.Bird.RealX = 0;
+            this.model.Bird.DY = 10;
+            this.model.Bird.DX = 15;
+            this.model.Bird.ItemCoordY = 560;
+            this.model.Bird.ItemCoordX = 40;
+            this.model.Bird.Rad = 0;
+            this.model.Launcher.ItemCoordX = 0;
+            this.Launch = true;
+            this.model.CurrentLevel = 0;
+            this.model.weather.ItemCoordX = Config.GameWidth;
+            this.model.wind.ItemCoordX = Config.GameWidth;
+            //GameIO.SaveGame(this.model, fname);
+        }
+
+        /// <summary>
+        /// Modifies the speed with each use, making the bird more controlable.
+        /// </summary>
+        public void BirdBoost()
+        {
+            if (this.model.Bird.Fuel > 0 && !this.Launch)
+            {
+                if (this.model.Bird.Rad < 0)
+                {
+                    this.model.Bird.DY += (4 * this.model.UpgradeItem1.Level) + (0.5 * (-this.model.Bird.Rad));
+                }
+                else
+                {
+                    this.model.Bird.DY += (2 * this.model.UpgradeItem1.Level) - (5.0 * this.model.Bird.Rad);
+                }
+
+                this.model.Bird.DX += 2 * this.model.UpgradeItem1.Level;
+                this.model.Bird.Fuel -= 3;
+            }
+        }
+
+        /// <summary>
+        /// With each tick changes the speed of the bird considering the angle.
+        /// </summary>
+        public void BirdTick()
+        {
+            if (this.model.Bird.Rad >= 0)
+            {
+                this.model.Bird.DY = (this.model.Bird.DY - ((0.01 * this.model.Bird.Weight) + (0.1 * this.model.Bird.Rad))) * (1 - (0.02 * this.model.UpgradeItem8.Level)); // lefele néz akkor gyorsabban zuhan
+            }
+            else if (this.model.Bird.Rad < 0)
+            {
+                this.model.Bird.DY = (this.model.Bird.DY - ((0.01 * this.model.Bird.Weight) + (0.03 * this.model.Bird.Rad))) * (1 - (0.02 * this.model.UpgradeItem8.Level)); // lassabban zuhan
+            }
+
+            //this.model.Bird.DX = this.model.Bird.DX - 0.25;
+            //this.model.Bird.Speed = Math.Abs(this.model.Bird.DY * this.model.Bird.DX) / 2;
+            this.model.Bird.RealY += this.model.Bird.DY;
+            this.model.Bird.RealX += this.model.Bird.DX;
+            //this.model.Bird.Rad = Math.Atan2(this.model.Bird.DY, this.model.Bird.DX);
+            if (this.model.Bird.RealX >= Config.GameDistance)
+            {
+                this.EndGameAnimation = true;
+            }
+        }
+
+        public void BirdCityTick()
+        {
+
+            if (this.inSky)
+            {
+                this.model.Bird.ItemCoordY = 100;
+                this.inSky = false;
+            }
+
+            this.BirdTick();
+            this.model.Bird.ItemCoordY -= this.model.Bird.DY;
+            if (this.model.Bird.ItemCoordY > 560)
+            {
+                this.model.Bird.DY = Math.Abs(this.model.Bird.DY) - (Math.Abs(this.model.Bird.DY) / 3) + (0.2 * this.model.UpgradeItem6.Level);
+                this.model.Bird.DX = this.model.Bird.DX - (Convert.ToInt32(Math.Abs(this.model.Bird.DY)) + 2);
+            }
+        }
+
+        public void BirdSkyTick()
+        {
+            if (this.inSky == false)
+            {
+                this.model.Bird.ItemCoordY = Config.GameHeight - 101;
+                this.inSky = true;
+            }
+
+            if (this.model.Bird.ItemCoordY < 100)
+            {
+                this.model.Bird.ItemCoordY = 100;
+            }
+            else
+            {
+                if (this.model.Bird.DY <= 0 && this.model.Bird.ItemCoordY > Config.GameHeight - 100)
+                {
+                    this.model.Bird.ItemCoordY = Config.GameHeight - 100;
+                }
+                else
+                {
+                    this.model.Bird.ItemCoordY -= this.model.Bird.DY;
+                }
+            }
+
+            this.BirdTick();
+        }
+
+        /// <summary>
+        /// Handling all the method in each tick.
+        /// </summary>
+        public void OneTick()
+        {
+            if (!this.EndGameAnimation)
+            {
+                if (this.model.Bird.RealY < 500)
+                {
+                    this.BirdCityTick();
+                }
+                else
+                {
+                    this.BirdSkyTick();
+                }
+
+                this.BackgroundTick();
+                //this.LauncherTick();
+                if (this.model.Bird.IsCollision(this.model.weather))
+                {
+                    this.model.Bird.DX += (random.NextDouble() * random.Next(-5, 2)) * (1 - (this.model.Bird.WeatherResistance / 100));
+                    this.model.Bird.Rad += (Math.PI / 60) * (1 - (this.model.Bird.WeatherResistance / 100));
+                }
+
+                if (this.model.Bird.IsCollision(this.model.wind))
+                {
+                    this.model.Bird.DX += (random.NextDouble() * random.Next(-3, 0)) * (1 - (this.model.Bird.WeatherResistance / 100));
+                    this.model.Bird.Rad += (Math.PI / 180) * (1 - (this.model.Bird.WeatherResistance / 100));
+                }
+
+                if (this.model.Bird.RealY > -30)
+                {
+                    if (this.model.HighestMeter < this.model.Bird.RealX)
+                    {
+                        this.model.HighestMeter = this.model.Bird.RealX;
+                    }
+                }
+
+                if (!this.IsThereWeather)
+                {
+                    if (this.WeatherTickCounter < 10)
+                    {
+                        this.WeatherTickCounter++;
+                    }
+                    else
+                    {
+                        this.WeatherTickCounter = 0;
+                        this.WeatherGenerateTick();
+                    }
+                }
+                else
+                {
+                    this.WeatherTick();
+                }
+
+                if (!this.IsThereWind)
+                {
+                    if (this.WindTickCounter < 10)
+                    {
+                        this.WindTickCounter++;
+                    }
+                    else
+                    {
+                        this.WindTickCounter = 0;
+                        this.WindGenerateTick();
+                    }
+                }
+                else
+                {
+                    this.WindTick();
+                }
+            }
+            else
+            {
+                this.model.Bird.ItemCoordX += 20;
+                if (this.model.Bird.ItemCoordX > 1280)
+                {
+                    this.InTimeTravel = true;
+                }
+            }
+            if (this.IsGameEnded())
+            {
+                this.GameEnded?.Invoke(this, this.model);
+            }
+        }
+
+        public void WeatherTick()
+        {
+            this.model.weather.ItemCoordX -= 15;
+            if (this.model.weather.ItemCoordX < -300)
+            {
+                this.IsThereWeather = false;
+            }
+        }
+
+        public void WindTick()
+        {
+            this.model.wind.ItemCoordX -= 15;
+            if (this.model.wind.ItemCoordX < -300)
+            {
+                this.IsThereWind = false;
+            }
+        }
+
+        /// <summary>
+        /// Generates and spawns the weather.
+        /// </summary>
+        public void WeatherGenerateTick()
+        {
+            int weatherRand = random.Next(0, 1000);
+            int weathChance = 20;
+            if (weatherRand < weathChance /*&& this.inSky==true*/)
+            {
+                this.IsThereWeather = true;
+                this.model.weather.ItemCoordX = Config.GameWidth;
+            }
+        }
+
+        /// <summary>
+        /// Generates and spawns the wind.
+        /// </summary>
+        public void WindGenerateTick()
+        {
+            int windRand = random.Next(0, 1000);
+            int windChance = 100;
+            if (windRand < windChance /*&& this.inSky==true*/)
+            {
+                this.IsThereWind = true;
+                this.model.wind.ItemCoordX = Config.GameWidth;
+            }
+        }
+
+        public void BackgroundTick()
+        {
+            if (this.model.Bird.RealX > Config.Levels[this.model.CurrentLevel + 1].DistanceToSwitchLevel)
+            {
+                this.model.CurrentLevel++;
+                this.InTimeTravel = true;
+            } // check if we are at the end of the game
+
+            foreach (OneBackground background in this.model.backgrounds)
+            {
+                //background.ItemCoordX -= Math.Abs(this.model.Bird.Speed);
+                background.ItemCoordX -= Math.Abs(this.model.Bird.DX);
+
+                if (background.ItemCoordX + Config.GameWidth <= 0)
+                {
+                    double farRightXCord = this.model.backgrounds.Max(x => x.ItemCoordX);
+                    background.ItemCoordX = farRightXCord + Config.GameWidth - Math.Abs(this.model.Bird.DX);//Math.Abs(this.model.Bird.Speed);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Disappears the launcher after shoot.
+        /// </summary>
+        public void LauncherTick()
+        {
+            this.model.Launcher.ItemCoordX -= Math.Abs(this.model.Bird.Speed);
+        }
+
+        /// <summary>
+        /// Increases the base speed of the bird.
+        /// </summary>
+        public void LauncherShoot()
+        {
+            if (this.Launch)
+            {
+                this.model.Bird.DX += this.model.Launcher.Power;
+                this.model.Bird.DY += this.model.Launcher.Power / 10;
+                this.Launch = false;
+                this.model.Bird.Fuel = 10 + (5 * this.model.UpgradeItem5.Level);
+            }
+        }
+
+        /// <summary>
+        /// Allows the user to change the angle.
+        /// </summary>
+        /// <param name="e">key argument, A or D.</param>
+        public void RotateBird(KeyEventArgs e)
+        {
+            double rotate = (this.model.Bird.Rad / Math.PI) * 180;
+            if (rotate < 90 && rotate > -90)
+            {
+                switch (e.Key)
+                {
+                    case Key.A: this.model.Bird.Rad -= (5.0 / 180.0) * Math.PI; break;
+                    case Key.D: this.model.Bird.Rad += (5.0 / 180.0) * Math.PI; break;
+                }
+            }
+            else if (rotate >= 90)
+            {
+                this.model.Bird.Rad = 17 * Math.PI / 36;
+                switch (e.Key)
+                {
+                    case Key.A: this.model.Bird.Rad -= 5.0 / 180.0 * Math.PI; break;
+                    case Key.D: this.model.Bird.Rad += 5.0 / 180.0 * Math.PI; break;
+                }
+            }
+            else
+            {
+                this.model.Bird.Rad = -17 * Math.PI / 36;
+                switch (e.Key)
+                {
+                    case Key.A: this.model.Bird.Rad -= 5.0 / 180.0 * Math.PI; break;
+                    case Key.D: this.model.Bird.Rad += 5.0 / 180.0 * Math.PI; break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Scans for az existing save.
+        /// </summary>
+        /// <param name="fname">current save.</param>
+        /// <returns>a bool.</returns>
+        public static bool GameExists(string fname)
+        {
+            return GameIO.GameExists(fname);
+        }
+
+        /// <summary>
+        /// Loads the selected save.
+        /// </summary>
+        /// <param name="fname">selected save.</param>
+        /// <returns>a model.</returns>
+        public static ITimetravelBirdModel LoadGame(string fname)
+        {
+            return GameIO.LoadSavedGame(fname);
+        }
+
+<<<<<<< HEAD
+        public static TimeTravelBirdLogic GameCreate(string fname)
+        {
+            var model = GameExists(fname)
+                    ? LoadGame(fname)
+                    : new TimetravelBirdModel(random.Next(1, 6));
+            var logic = new TimeTravelBirdLogic(model);
+            return logic;
+=======
+        public bool IsGameEnded()
+        {
+            if (this.model.Bird.DX <= 0 && this.model.Bird.ItemCoordY >= 560) 
+            {
+                return true;
+            }
+
+            return false;
+>>>>>>> develop
+        }
+    }
+}

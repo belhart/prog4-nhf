@@ -1,0 +1,23 @@
+var searchData=
+[
+  ['icurrentgame_74',['ICurrentGame',['../interface_timetravel_bird_1_1_repo_1_1_i_current_game.html',1,'TimetravelBird::Repo']]],
+  ['igameitem_75',['IGameItem',['../interface_timetravel_bird_1_1_model_1_1_i_game_item.html',1,'TimetravelBird::Model']]],
+  ['ingame_76',['Ingame',['../class_timetravel_bird_1_1_views_1_1_ingame.html',1,'TimetravelBird::Views']]],
+  ['ingamemenu_77',['InGameMenu',['../class_timetravel_bird_1_1_in_game_menu.html',1,'TimetravelBird']]],
+  ['ingameviewmodel_78',['IngameViewModel',['../class_timetravel_bird_1_1_view_models_1_1_ingame_view_model.html',1,'TimetravelBird.ViewModels.IngameViewModel'],['../class_timetravel_bird_1_1_view_models_1_1_ingame_view_model.html#aeb2006d9d69d32dc1eb76e4bce157692',1,'TimetravelBird.ViewModels.IngameViewModel.IngameViewModel()']]],
+  ['insky_79',['InSky',['../interface_timetravel_bird_1_1_logic_1_1_i_time_travel_bird_logic.html#a188e5871c01275aa8da78b7ce3550247',1,'TimetravelBird.Logic.ITimeTravelBirdLogic.InSky()'],['../class_timetravel_bird_1_1_logic_1_1_time_travel_bird_logic.html#ae6fb5aa5a6fc3b93efdcf50917da16e8',1,'TimetravelBird.Logic.TimeTravelBirdLogic.InSky()']]],
+  ['intimetravel_80',['InTimeTravel',['../interface_timetravel_bird_1_1_logic_1_1_i_time_travel_bird_logic.html#a2105e21a43f6bc45fc4e3e6960b0a764',1,'TimetravelBird.Logic.ITimeTravelBirdLogic.InTimeTravel()'],['../class_timetravel_bird_1_1_logic_1_1_time_travel_bird_logic.html#a17001a2d03cb4406e1134c1f550191b5',1,'TimetravelBird.Logic.TimeTravelBirdLogic.InTimeTravel()']]],
+  ['iscollision_81',['IsCollision',['../class_timetravel_bird_1_1_model_1_1_game_item.html#ad171acb3bcb36f7be282803f40a502f6',1,'TimetravelBird.Model.GameItem.IsCollision()'],['../interface_timetravel_bird_1_1_model_1_1_i_game_item.html#aff32681682d334819ea0b092d1de0374',1,'TimetravelBird.Model.IGameItem.IsCollision()']]],
+  ['isgameended_82',['IsGameEnded',['../interface_timetravel_bird_1_1_logic_1_1_i_time_travel_bird_logic.html#afa8a58ddb6134aecfab24f2b33d5dc16',1,'TimetravelBird.Logic.ITimeTravelBirdLogic.IsGameEnded()'],['../class_timetravel_bird_1_1_logic_1_1_time_travel_bird_logic.html#ac2f3a436dc9b3339fb82168e8527ed89',1,'TimetravelBird.Logic.TimeTravelBirdLogic.IsGameEnded()']]],
+  ['isgamefinished_83',['IsGameFinished',['../class_timetravel_bird_1_1_logic_1_1_time_travel_bird_logic.html#ac0478e912469d440cb2e9e0ad8992e78',1,'TimetravelBird::Logic::TimeTravelBirdLogic']]],
+  ['islastframe_84',['IsLastFrame',['../class_game_1_1_renderer_1_1_classes_1_1_gif_bitmap.html#a3707c60117d2cb323d21f7819ae16b8b',1,'Game::Renderer::Classes::GifBitmap']]],
+  ['ismaxlevel_85',['IsMaxLevel',['../class_timetravel_bird_1_1_model_1_1_item.html#a25d2c7ec3399378e075936149b81b21d',1,'TimetravelBird::Model::Item']]],
+  ['isthereweather_86',['IsThereWeather',['../class_timetravel_bird_1_1_logic_1_1_time_travel_bird_logic.html#a611ae6b3f88f7897253e42d56303f08b',1,'TimetravelBird::Logic::TimeTravelBirdLogic']]],
+  ['istherewind_87',['IsThereWind',['../class_timetravel_bird_1_1_logic_1_1_time_travel_bird_logic.html#a236298fe752503fd701858cdec6dc15f',1,'TimetravelBird::Logic::TimeTravelBirdLogic']]],
+  ['item_88',['Item',['../class_timetravel_bird_1_1_model_1_1_item.html',1,'TimetravelBird.Model.Item'],['../class_timetravel_bird_1_1_model_1_1_item.html#ad2d9fd02103891791b25f7a0f0a53b2d',1,'TimetravelBird.Model.Item.Item()']]],
+  ['itemcoordx_89',['ItemCoordX',['../class_timetravel_bird_1_1_model_1_1_game_item.html#ae2cfaf6241fb75bbe3639ac0446a6a4d',1,'TimetravelBird::Model::GameItem']]],
+  ['itemcoordy_90',['ItemCoordY',['../class_timetravel_bird_1_1_model_1_1_game_item.html#a8971e4e7f453442b084177125fc22952',1,'TimetravelBird::Model::GameItem']]],
+  ['itemupgrademultiplier_91',['ItemUpgradeMultiplier',['../interface_timetravel_bird_1_1_model_1_1_i_timetravel_bird_model.html#aa4a1182b7886e05bd1691fb5abebdd9d',1,'TimetravelBird.Model.ITimetravelBirdModel.ItemUpgradeMultiplier()'],['../class_timetravel_bird_1_1_model_1_1_timetravel_bird_model.html#a716a2d4f3e94b0dcd6907c93fa2009b4',1,'TimetravelBird.Model.TimetravelBirdModel.ItemUpgradeMultiplier()']]],
+  ['itimetravelbirdlogic_92',['ITimeTravelBirdLogic',['../interface_timetravel_bird_1_1_logic_1_1_i_time_travel_bird_logic.html',1,'TimetravelBird::Logic']]],
+  ['itimetravelbirdmodel_93',['ITimetravelBirdModel',['../interface_timetravel_bird_1_1_model_1_1_i_timetravel_bird_model.html',1,'TimetravelBird::Model']]]
+];

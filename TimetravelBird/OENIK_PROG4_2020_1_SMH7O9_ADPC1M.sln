@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29411.108
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimetravelBird", "TimetravelBird.csproj", "{817DB219-5942-41F2-92EC-6268391B779E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimetravelBird.Repo", "..\TimetravelBird.Repo\TimetravelBird.Repo.csproj", "{64772624-FC23-4CEE-8EF4-88CE4D07AA1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimetravelBird.Model", "..\TimetravelBird.Model\TimetravelBird.Model.csproj", "{F15CE299-7BA8-4F1B-B0A9-74B2261DFC62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimetravelBird.Logic", "..\TimetravelBird.Logic\TimetravelBird.Logic.csproj", "{09F02824-88B1-4ABB-A66F-A9101694BBAF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimetravelBird.Renderer", "..\TimetravelBird.Renderer\TimetravelBird.Renderer.csproj", "{E90C48B1-9D84-46FC-94EE-0A766EC9A179}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimetravelBird.Logic.Tests", "..\TimetravelBird.Logic.Tests\TimetravelBird.Logic.Tests.csproj", "{6F8B8003-6F58-4494-9411-10B05C3F0E25}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{817DB219-5942-41F2-92EC-6268391B779E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{817DB219-5942-41F2-92EC-6268391B779E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{817DB219-5942-41F2-92EC-6268391B779E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{817DB219-5942-41F2-92EC-6268391B779E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64772624-FC23-4CEE-8EF4-88CE4D07AA1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64772624-FC23-4CEE-8EF4-88CE4D07AA1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64772624-FC23-4CEE-8EF4-88CE4D07AA1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64772624-FC23-4CEE-8EF4-88CE4D07AA1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F15CE299-7BA8-4F1B-B0A9-74B2261DFC62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F15CE299-7BA8-4F1B-B0A9-74B2261DFC62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F15CE299-7BA8-4F1B-B0A9-74B2261DFC62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F15CE299-7BA8-4F1B-B0A9-74B2261DFC62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09F02824-88B1-4ABB-A66F-A9101694BBAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09F02824-88B1-4ABB-A66F-A9101694BBAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09F02824-88B1-4ABB-A66F-A9101694BBAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09F02824-88B1-4ABB-A66F-A9101694BBAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E90C48B1-9D84-46FC-94EE-0A766EC9A179}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E90C48B1-9D84-46FC-94EE-0A766EC9A179}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E90C48B1-9D84-46FC-94EE-0A766EC9A179}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E90C48B1-9D84-46FC-94EE-0A766EC9A179}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F8B8003-6F58-4494-9411-10B05C3F0E25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F8B8003-6F58-4494-9411-10B05C3F0E25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F8B8003-6F58-4494-9411-10B05C3F0E25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F8B8003-6F58-4494-9411-10B05C3F0E25}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5792B5BB-0C24-4244-BCA7-3073354A68E7}
+	EndGlobalSection
+EndGlobal

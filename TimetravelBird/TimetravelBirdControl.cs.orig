@@ -1,0 +1,79 @@
+﻿namespace TimetravelBird
+{
+    using System.Windows;
+<<<<<<< HEAD
+    using System.Windows.Media;
+    using TimetravelBird.Model;
+    using TimetravelBird.Renderer;
+=======
+    using TimetravelBird.Renderer;
+    using TimetravelBird.Model;
+    using TimetravelBird.Logic;
+    using System.Windows.Media;
+    using System.Windows.Input;
+    using System.Diagnostics;
+    using System.Windows.Threading;
+    using System;
+>>>>>>> develop
+
+    public class TimetravelBirdControl : FrameworkElement
+    {
+        TimetravelBirdModel model;
+        TimetravelBirdRenderer renderer;
+        TimeTravelBirdLogic logic;
+        Stopwatch watch;
+        DispatcherTimer mainTimer;
+
+        public TimetravelBirdControl()
+        {
+            Loaded += TimetravelBirdControl_Loaded;
+        }
+
+        private void TimetravelBirdControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.model = new TimetravelBirdModel();
+            this.renderer = new TimetravelBirdRenderer(this.model);
+            this.logic = new TimeTravelBirdLogic(this.model);
+            this.watch = new Stopwatch();
+
+            Window win = Window.GetWindow(this);
+            if (win != null)
+            {
+                win.KeyDown += this.Win_KeyDown;
+                mainTimer = new DispatcherTimer();
+                mainTimer.Interval = TimeSpan.FromMilliseconds(100);
+                mainTimer.Tick += MainTimer_Tick;
+                mainTimer.Start();
+
+                // mousedown?
+            }
+
+            this.InvalidateVisual();
+            watch.Start();
+        }
+
+        private void MainTimer_Tick(object sender, EventArgs e)
+        {
+            logic.OneTick();
+            InvalidateVisual();
+        }
+
+        protected override void OnRender(DrawingContext drawingContext)
+        {
+            if (this.renderer != null)
+            {
+                drawingContext.DrawDrawing(this.renderer.BuildGameDrawing());
+            }
+        }
+
+        private void Win_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+           double time = watch.ElapsedTicks;
+           switch(e.Key)
+            {
+                case Key.Space:logic.BirdBoost();break;
+            }
+
+        }
+    }
+}

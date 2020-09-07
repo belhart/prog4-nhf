@@ -1,0 +1,80 @@
+﻿<UserControl x:Class="TimetravelBird.Views.UpgradeMenu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:src="clr-namespace:TimetravelBird.Model;assembly=TimetravelBird.Model"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:viewmodel="clr-namespace:TimetravelBird.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="720" d:DesignWidth="1280">
+
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="190*"/>
+            <RowDefinition Height="115*"/>
+            <RowDefinition Height="25*"/>
+            <RowDefinition Height="115*"/>
+            <RowDefinition Height="21*"/>
+            <RowDefinition Height="65*"/>
+            <RowDefinition Height="45*"/>
+            <RowDefinition Height="45*"/>
+            <RowDefinition Height="100*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="45*"/>
+            <ColumnDefinition Width="405*"/>
+            <ColumnDefinition Width="315*"/>
+            <ColumnDefinition Width="265*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="150*"/>
+        </Grid.ColumnDefinitions>
+        <Image Source="/TimetravelBird.Renderer;Component/assets/backgrounds/UpgradeMenuInGamev2.png" Grid.ColumnSpan="6" Margin="10,1,-11,-4" Grid.RowSpan="9" Stretch="Fill"/>
+
+
+        <Button  Margin="11.2,1.4,16.2,0.4" Grid.Column="1" Grid.Row="5" Command="{Binding LaunchAgain}" BorderThickness="0" Background="{x:Null}" Style="{StaticResource MouseOver}">
+            <Image Source="/TimetravelBird.Renderer;Component/assets/buttons/LaunchAgainButton.png" Stretch="Fill"></Image>
+        </Button>
+        <Button Margin="56.2,37.4,62.6,52.4" Grid.Column="3" Grid.Row="3" Grid.RowSpan="3" Grid.ColumnSpan="2" Background="{x:Null}" BorderBrush="#FF9A5122" BorderThickness="5" Style="{StaticResource MouseOver}" Command="{Binding UpgradeClick}" >
+            <Image Source="/TimetravelBird.Renderer;Component/assets/buttons/UpgradeButton.png" Stretch="Fill"/>
+        </Button>
+        <Button Margin="4.2,0.8,250.2,96" Grid.Row="7" Background="{x:Null}" BorderThickness="0"  Command="{Binding SaveGameClick}" Grid.Column="1" Style="{StaticResource MouseOver}" Grid.RowSpan="2">
+            <Image Source="/TimetravelBird.Renderer;Component/assets/buttons/SaveGameButton.png" Stretch="Fill"></Image>
+        </Button>
+        <Button Grid.Column="1" Margin="156.2,0.8,5.2,96" Grid.Row="7" Background="{x:Null}" BorderThickness="0" Command="{Binding QuitToMainMenuClick}" Style="{StaticResource MouseOver}" Grid.RowSpan="2">
+            <Image Source="/TimetravelBird.Renderer;Component/assets/buttons/QuitToMainMenuButton.png" Stretch="Fill"></Image>
+        </Button>
+
+        <Button x:Name="Boosty" Grid.Column="1" Margin="1.2,0.4,315.2,0.8" Grid.Row="1" Command="{Binding BoostyClick}">
+            <Image x:Name="kacsa" Source="/TimetravelBird.Renderer;Component/assets/upgradeitems/Boosty.png" Stretch="Fill"></Image>
+        </Button>
+        <Button x:Name="Lightly" Grid.Column="1" Margin="108.2,0.4,208.2,24.6" Grid.Row="1" Command="{Binding LightlyClick}" Grid.RowSpan="2" >
+            <Image Source="/TimetravelBird.Renderer;Component/assets/upgradeitems/Lightly.png" Stretch="Fill"></Image>
+        </Button>
+        <Button x:Name="Resistancy" Grid.Column="1" Margin="209.2,0.4,105.2,0.8" Grid.Row="1" Command="{Binding ResistancyClick}">
+            <Image Source="/TimetravelBird.Renderer;Component/assets/upgradeitems/Resistancy.png" Stretch="Fill"></Image>
+        </Button>
+        <Button x:Name="Moneymultiply" Grid.Column="1" Margin="317.2,0.4,0.2,0.8" Grid.Row="1" Command="{Binding MoneymultiplyClick}">
+            <Image Source="/TimetravelBird.Renderer;Component/assets/upgradeitems/Moneymultiply.png" Stretch="Fill" Height="120"></Image>
+        </Button>
+
+        <Button x:Name="Fuely" Grid.Column="1" Margin="1.2,1.4,315.2,1.8" Grid.Row="3" Command="{Binding FuelyClick}">
+            <Image Source="/TimetravelBird.Renderer;Component/assets/upgradeitems/Fuely.jpg" Stretch="Fill"></Image>
+        </Button>
+        <Button x:Name="Bouncy" Grid.Column="1" Margin="102.2,1.4,214.2,1.8" Grid.Row="3" Command="{Binding BouncyClick}">
+            <Image Source="/TimetravelBird.Renderer;Component/assets/upgradeitems/Bouncy.png" Stretch="Fill"></Image>
+        </Button>
+        <Button x:Name="Launchy" Grid.Column="1" Margin="209.2,1.4,104.2,1.8" Grid.Row="3" Command="{Binding LaunchyClick}">
+            <Image Source="/TimetravelBird.Renderer;Component/assets/upgradeitems/Launchy.png" Stretch="Fill"></Image>
+        </Button>
+        <Button x:Name="Gravity" Grid.Column="1" Margin="315.2,1.4,2.2,1.8" Grid.Row="3" Command="{Binding GravityClick}">
+            <Image Source="/TimetravelBird.Renderer;Component/assets/upgradeitems/Gravity.png" Stretch="Fill"></Image>
+        </Button>
+        <Label x:Name="CurrentMoney" Content="{Binding CurrentMoney}" Grid.Column="4" Margin="0.4,49,0.6,95.6" Background="#B297938C"/>
+        <Label x:Name="UpgradeName" Content="{Binding UpgradeName}" Grid.Column="3" Margin="51.2,134,9.6,114.8" FontFamily="Showcard Gothic" FontSize="14" Grid.RowSpan="2"/>
+        <Label x:Name="UpgradeDescription" Content="{Binding UpgradeDesc}" Grid.Column="3" Margin="41.2,10.4,33.6,9.8" Grid.Row="1" FontFamily="OCR A Extended" Grid.ColumnSpan="2" FontSize="16"/>
+        <Label x:Name="UpgradeCost" Grid.ColumnSpan="2" Content="{Binding UpgradeCost}" Grid.Column="3" Margin="236.2,4.8,23.6,0" Grid.Row="7" FontSize="22" FontFamily="Showcard Gothic"/>
+
+        <ProgressBar x:Name="UpgradeLevel" Grid.Column="3" Margin="44.2,49.4,46.6,21.2" Grid.Row="5" Grid.ColumnSpan="2" Background="{x:Null}" Foreground="#99F65012" Value="{Binding ProgressBar}" Grid.RowSpan="2" Maximum="70"/>
+    </Grid>
+</UserControl>

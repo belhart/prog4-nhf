@@ -1,0 +1,31 @@
+﻿<Window x:Class="TimetravelBird.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TimetravelBird"
+        xmlns:views1="clr-namespace:TimetravelBird.Views"
+        xmlns:viewmodels1="clr-namespace:TimetravelBird.ViewModels"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="720" Width="1280"
+        WindowStartupLocation="CenterScreen"
+        >
+    <Window.Resources>
+        <DataTemplate x:Name="MainMenu" DataType="{x:Type viewmodels1:MainMenuViewModel}">
+            <views1:MainMenu DataContext="{Binding}"></views1:MainMenu>
+        </DataTemplate>
+        <DataTemplate x:Name="InGame" DataType="{x:Type viewmodels1:IngameViewModel}">
+            <views1:Ingame DataContext="{Binding}"></views1:Ingame>
+        </DataTemplate>
+        <DataTemplate x:Name="LoadSaveMenu" DataType="{x:Type viewmodels1:LoadSaveMenuViewModel}">
+            <views1:LoadSaveMenu DataContext="{Binding}"></views1:LoadSaveMenu>
+        </DataTemplate>
+        <DataTemplate x:Name="UpgradeMenu" DataType="{x:Type viewmodels1:UpgradeMenuViewModel}">
+            <views1:UpgradeMenu DataContext="{Binding}"></views1:UpgradeMenu>
+        </DataTemplate>
+        <DataTemplate x:Name="HighScore" DataType="{x:Type viewmodels1:HighScoreViewModel}">
+            <views1:HighScore DataContext="{Binding}"></views1:HighScore>
+        </DataTemplate>
+    </Window.Resources>
+    <ContentControl Content="{Binding}"/>
+</Window>
